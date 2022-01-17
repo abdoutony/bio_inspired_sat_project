@@ -1,0 +1,39 @@
+.background-dark {
+  -fx-background-color: "#191919";
+}
+.background-red {
+  -fx-background-color: "#f70b37";
+}
+.background-yellow {
+  -fx-background-color: "#eac721";
+}
+
+.background-white {
+  -fx-background-color: "#ffffff";
+}
+
+.background-gray {
+  -fx-background-color: "#F5F5F5";
+}
+
+.text-gray {
+  -fx-text-fill: "#F5F5F5";
+}
+
+.text-red {
+  -fx-text-fill: "#f70b37";
+}
+.text-yellow {
+  -fx-text-fill: "#eac721";
+}
+.text-white {
+  -fx-text-fill: "#ffffff";
+}
+.text-dark {
+  -fx-text-fill: "#191919";
+}
+.welcome-title {
+  -fx-font-weight: bold;
+  -fx-text-decoration: dotted;
+  -fx-font-size: 28px;
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="448.0" prefWidth="757.0" styleClass="background-dark" stylesheets="@../../../../../../bio%20inspired%20project/applicationStyles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="authentication.LoginController">
+   <children>
+      <Label layoutX="99.0" layoutY="48.0" prefHeight="118.0" prefWidth="608.0" text="Welcome To SAT problem Solvers Application" textAlignment="CENTER" textFill="#f70b37" wrapText="true">
+         <font>
+            <Font size="26.0" />
+         </font>
+         <styleClass>
+            <String fx:value="welcome-title" />
+            <String fx:value="text-white" />
+         </styleClass>
+      </Label>
+      <Label layoutX="287.0" layoutY="141.0" prefHeight="25.0" prefWidth="185.0" styleClass="text-white" text="Login As an Administrator">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userNameField" layoutX="219.0" layoutY="188.0" prefHeight="36.0" prefWidth="322.0" promptText="Email" />
+      <PasswordField fx:id="passwordField" layoutX="219.0" layoutY="250.0" prefHeight="36.0" prefWidth="322.0" promptText="Password" />
+      
+      <Button fx:id="loginBtn" layoutX="219.0" layoutY="318.0" mnemonicParsing="false" onAction="#ok" prefHeight="30.0" prefWidth="322.0" stylesheets="@applicationStyles.css" text="Login">
+         <padding>
+            <Insets bottom="8.0" top="8.0" />
+         </padding>
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+         <Label fx:id="errorLabel" id="error-label" layoutX="219.0" layoutY="369.0" prefHeight="17.0" prefWidth="322.0" textFill="WHITE" />
+   </children>
+</AnchorPane>
