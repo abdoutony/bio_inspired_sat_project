@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 import authentication.LoginController;
@@ -16,8 +17,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
@@ -38,8 +41,8 @@ public class MainController implements Initializable {
     int initialValue = 10;
 	@FXML private Spinner<Integer> nbrInstancesDFS ;
 	@FXML private Slider timeOutDFS;
-	@FXML private LineChart<Number,Number> lineChartDFS;
-	@FXML private AreaChart<Number, Number> barChartDFS;
+	@FXML private ScatterChart<Number,Number> scatterChartDFS;
+	@FXML private LineChart<Number, Number> lineChartDFS;
 	@FXML private PieChart pieChartDFS;
 	@FXML private Label TotalExecutionTimeDFS;
 
@@ -80,14 +83,14 @@ public class MainController implements Initializable {
 			Run_Algo_Dfs.runAlgoDFS();
 			
 			//
+			loadScatterDataDFS();
 			loadLineDataDFS();
-			loadBarDataDFS();
 			loadPieDataDFS();
-			
-			TotalExecutionTimeDFS.setText("Time: "+String.valueOf((double)Run_Algo_Dfs.DEPTH_FIRST_TOTAL_TIME/60000)+" min");
+			Double execTime = (double)Run_Algo_Dfs.DEPTH_FIRST_TOTAL_TIME/60000;
+			TotalExecutionTimeDFS.setText(new DecimalFormat("##.##").format(execTime)+" min");
 		}
 		
-		private void loadLineDataDFS() {
+		private void loadScatterDataDFS() {
 			
 			
 			XYChart.Series<Number, Number> serieBFS = new XYChart.Series<Number, Number>();
@@ -97,12 +100,12 @@ public class MainController implements Initializable {
 				serieBFS.getData().add(data);
 			}
 			
-			lineChartDFS.getData().add(serieBFS);
+			scatterChartDFS.getData().add(serieBFS);
 			seriesList.add(serieBFS);
 			//comparatif_line_chart.getData().add(serie);
 			
 		}
-		private void loadBarDataDFS() {
+		private void loadLineDataDFS() {
 			
 			XYChart.Series<Number, Number> s = new XYChart.Series<Number, Number>();
 			s.setName("Time exe for each instence in ms (BFS)");
@@ -111,7 +114,7 @@ public class MainController implements Initializable {
 			   s.getData().add(data);
 			}
 			
-			barChartDFS.getData().add(s);
+			lineChartDFS.getData().add(s);
 			Algo_Body_Dfs.list_of_data_satisfactionDFS.clear();
 		}
 		
