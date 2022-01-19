@@ -3,7 +3,7 @@ package sat_codification;
 import java.util.List;
 
 import aco.Ant;
-import dfs_algorithm.Solution;
+import algos_dfs_astar_global_classes.Solution;
 import sat_codification.Clause;
 import sat_codification.Litteral;
 
@@ -24,7 +24,7 @@ public class Sat {
 	    }
 
 	    public boolean satisfied(Solution solution) {
-	        int[] values = solution.getValues();
+	        int[] values = solution.getArraySolution();
 	        boolean sat = false;
 	        for (Clause c : listClauses) {
 	            sat = false;
@@ -58,7 +58,7 @@ public class Sat {
 	    
 	    public int satisfiedClauses(Solution solution) {
 	        int satisfactions = 0;
-	        int[] values = solution.getValues();
+	        int[] values = solution.getArraySolution();
 	        for (Clause c : listClauses) {
 	            for(Litteral l : c.getListLitterals()){
 	                if(l.getLitteralValue(values[l.getLitName()-1]) == 1){

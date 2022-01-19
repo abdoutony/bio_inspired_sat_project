@@ -5,6 +5,8 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
+import a_star_algorithm.Algo_Body_AStar;
+import a_star_algorithm.Run_Algo_AStar;
 import authentication.LoginController;
 import dfs_algorithm.Algo_Body_Dfs;
 import dfs_algorithm.Run_Algo_Dfs;
@@ -30,14 +32,15 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
+import loading_charts.*;
 
 
 public class MainController implements Initializable {	 
 	public MainController() {}
-	 // Create empty series
+	 /* Create an empty series of type observable array list */
     private ObservableList<Series<Number,Number>> seriesList = FXCollections.observableArrayList();
     
-	////////////////////////////////////////     bfs algo variables
+	/*The variable used to deal with Depth first search algorithm*/
     int initialValue = 10;
 	@FXML private Spinner<Integer> nbrInstancesDFS ;
 	@FXML private Slider timeOutDFS;
@@ -45,16 +48,28 @@ public class MainController implements Initializable {
 	@FXML private LineChart<Number, Number> lineChartDFS;
 	@FXML private PieChart pieChartDFS;
 	@FXML private Label TotalExecutionTimeDFS;
-
+	
+	/* The variables used to deal with a star algorithm */
+	@FXML private Spinner<Integer> nbrInstancesASTAR ;
+	@FXML private Slider timeOutASTAR;
+	@FXML private ScatterChart<Number,Number> scatterChartASTAR;
+	@FXML private LineChart<Number, Number> lineChartASTAR;
+	@FXML private PieChart pieChartASTAR;
+	@FXML private Label TotalExecutionTimeASTAR;
+     
+	/* Variable to trigger logout button */
     @FXML
     private Button LogoutBtn;
     
+    
+    /* function to execute logout*/
 	@FXML
-	public void proccessLogout(ActionEvent event) {
+	public void executeLogout(ActionEvent event) {
 		LoginController login = new LoginController();
 		login.logout();
 		this.loadScreen(LogoutBtn, "welcome_scene.fxml");
 	}
+	/*function to load a given screen*/
 	 public void loadScreen(Button button,String scene){  
 	
 		  try {
@@ -71,66 +86,40 @@ public class MainController implements Initializable {
 		 }
 	
 	 
-		/////////////////////////////////////////////// afs
+		/* function to execute depth first search algorithm */
 		@FXML
-		public void processDFS(ActionEvent e) {
-			Run_Algo_Dfs.NUMBER_OF_INSTANCES_TO_USE = Integer.valueOf(nbrInstancesDFS.getValue());
-			//System.out.println(Load.NUMBER_OF_INSTANCES_TO_USE);
-			Algo_Body_Dfs.DEFAULT_TIMEOUT = (long)timeOutDFS.getValue();
-			//System.out.println(Algorithmes.DEFAULT_TIMEOUT);
-			
-			
-			Run_Algo_Dfs.runAlgoDFS();
-			
-			//
-			loadScatterDataDFS();
-			loadLineDataDFS();
-			loadPieDataDFS();
-			Double execTime = (double)Run_Algo_Dfs.DEPTH_FIRST_TOTAL_TIME/60000;
+		public void executeDFS(ActionEvent e) {
+			Run_Algo_Dfs.INSTANCES_TO_USE = Integer.valueOf(nbrInstancesDFS.getValue());
+			Algo_Body_Dfs.TIMEOUT_DEFAULT_VALUE = (long)timeOutDFS.getValue();
+			/* the function that runs the DFS Algorithm */
+			Run_Algo_Dfs.dfsAlgorithmRun();
+			/* Loading the graphs to show the results after executing the DFS Algorithm */
+			LoadingCharts.scatterChartDFS(scatterChartDFS,seriesList);
+			LoadingCharts.lineChartDFS(lineChartDFS, seriesList);
+			LoadingCharts.pieChartDFS(pieChartDFS, seriesList);
+			/* calculating and setting the total execution time of the DFS Algorithm */
+			Double execTime = (double)Run_Algo_Dfs.TOTAL_TIME_DFS/60000;
 			TotalExecutionTimeDFS.setText(new DecimalFormat("##.##").format(execTime)+" min");
 		}
 		
-		private void loadScatterDataDFS() {
-			
-			
-			XYChart.Series<Number, Number> serieBFS = new XYChart.Series<Number, Number>();
-			serieBFS.setName("accuracy of DFS");
+	
 		
-			for (XYChart.Data<Number,Number> data : Algo_Body_Dfs.list_of_data_accuracyDFS) {
-				serieBFS.getData().add(data);
-			}
-			
-			scatterChartDFS.getData().add(serieBFS);
-			seriesList.add(serieBFS);
-			//comparatif_line_chart.getData().add(serie);
-			
-		}
-		private void loadLineDataDFS() {
-			
-			XYChart.Series<Number, Number> s = new XYChart.Series<Number, Number>();
-			s.setName("Time exe for each instence in ms (BFS)");
-			
-			for (Data<Number, Number> data : Algo_Body_Dfs.list_of_data_satisfactionDFS) {
-			   s.getData().add(data);
-			}
-			
-			lineChartDFS.getData().add(s);
-			Algo_Body_Dfs.list_of_data_satisfactionDFS.clear();
-		}
+		/*  /////////////////////A Star Algorithm ///////////////////////////////// */
 		
-		private void loadPieDataDFS() {
-			int i = 0;
-			float global_accuracy=0;
-			for (Data<Number, Number> data : Algo_Body_Dfs.list_of_data_accuracyDFS) {
-			global_accuracy = global_accuracy + Float.parseFloat(data.getYValue().toString());
-			i++;
-			}
-			global_accuracy = global_accuracy/i;
-			ObservableList<PieChart.Data> ol = FXCollections.observableArrayList(
-			new PieChart.Data("accuracy of global satisfed instences: %"+global_accuracy,global_accuracy),
-			new PieChart.Data("accuracy of global no satisfed instences: %"+(100-global_accuracy),100-global_accuracy));
-			pieChartDFS.setData(ol);
-			Algo_Body_Dfs.list_of_data_accuracyDFS.clear();
+		@FXML
+		public void executeASTAR(ActionEvent e) {
+			Run_Algo_AStar.INSTANCES_TO_USE = Integer.valueOf(nbrInstancesDFS.getValue());
+			//System.out.println(Load.NUMBER_OF_INSTANCES_TO_USE);
+			Algo_Body_AStar.TIMEOUT_DEFAULT_VALUE = (long)timeOutASTAR.getValue();
+			//System.out.println(Algorithmes.DEFAULT_TIMEOUT);		
+			Run_Algo_AStar.astarAlgorithmRun();
+			/* Loading the graphs to show the results after executing the DFS Algorithm */
+			LoadingCharts.scatterChartASTAR(scatterChartASTAR,seriesList);
+			LoadingCharts.lineChartASTAR(lineChartASTAR, seriesList);
+			LoadingCharts.pieChartASTAR(pieChartASTAR, seriesList);	
+			/* calculating and setting the total execution time of the DFS Algorithm */
+			Double execTime = (double)Run_Algo_AStar.TOTAL_TIME_ASTAR/60000;
+			TotalExecutionTimeASTAR.setText(new DecimalFormat("##.##").format(execTime)+" min");
 		}
 	
 	 
@@ -139,6 +128,7 @@ public class MainController implements Initializable {
 		// TODO Auto-generated method stub
 		SpinnerValueFactory<Integer> svf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, initialValue);
 		nbrInstancesDFS.setValueFactory(svf);
+		nbrInstancesASTAR.setValueFactory(svf);
 		
 	}
 }

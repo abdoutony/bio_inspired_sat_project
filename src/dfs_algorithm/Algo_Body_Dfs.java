@@ -6,73 +6,89 @@ import java.util.List;
 import java.util.Stack;
 
 import dfs_algorithm.Run_Algo_Dfs;
-import dfs_algorithm.Solution;
+import algos_dfs_astar_global_classes.Solution;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import loading_sat_dataset.Loading;
 
 public class Algo_Body_Dfs {
 	
-	public static  long DEFAULT_TIMEOUT = 6000; // en ms
-    public static List<XYChart.Data<Number, Number>> list_of_data_accuracyDFS = new ArrayList<XYChart.Data<Number,Number>>();
-    public static List<XYChart.Data<Number, Number>> list_of_data_satisfactionDFS = new ArrayList<XYChart.Data<Number,Number>>();
-    private static final String DEPTH_FIRST_ALGORITHM = "Profondeur"; // en ms
+	public static  long TIMEOUT_DEFAULT_VALUE = 6000; // en ms
+    public static List<XYChart.Data<Number, Number>> list_accuracy_for_each_instance_DFS = new ArrayList<XYChart.Data<Number,Number>>();
+    public static List<XYChart.Data<Number, Number>> list__satisfaction_DFS_data = new ArrayList<XYChart.Data<Number,Number>>();
+    /*private static final String Dfs_Algorithm = "DFS"; */// en ms
 
-    private long startTime, stopTime;
-    private Solution best;
+    private long timeStart, timeStop;
+    private Solution bestSolution;
 
-    private int best_sats;
+    private int nbr_satisfied_clauses;
     private int tmp_sats;
+    
 
-    private void printBestSolution(String algorithm) {
-        System.out.println(algorithm + " Solution " + Arrays.toString(best.getValues()));
-        //System.out.println("Satisfactions : " + Load.sat.satisfiedClauses(best) + " - " + (float) Load.sat.satisfiedClauses(best) / Load.CLAUSE_NUMBER * 100 + "%");
-        System.out.println("Time : " + (stopTime - startTime) + "ms");
-        System.out.println("--------------------------------------------");
-    }
+    /* the body of the dfs algorithm */
+    public void dfsAlgorithmBody(int instance) {
 
-    // Profondeur Dabord
-    public void depthFirstAlgorithm(int instence) {
+    	/*instanciate variable with 0 value*/
+        int[] values = new int[Loading.VAR_NUM]; 
+        
+        /* create the stack to stock the nodes */
+        Stack<Solution> sols = new Stack<Solution>(); 
+        /*fill the left stack*/
+        sols.push(new Solution(values, 0, 1));
+        /*fill the right stack*/
+        sols.push(new Solution(values, 0, 0));
+        
+        /*pull the last element of the stack apply last in first out principle*/
+        Solution solution = sols.pop();
+       
+        /*instanciate the bestSolution with the solution that we extracted from the stack */
+        bestSolution = solution;
 
-        int[] values = new int[Loading.VAR_NUM]; // setting variables a 0 
-
-        Stack<Solution> sols = new Stack<Solution>(); // creation du Pile
-        sols.push(new Solution(values, 0, 1)); // remplissage fils droit
-        sols.push(new Solution(values, 0, 0)); // remplissage fils gauche
-        Solution s = sols.pop(); // extraction du dernier element LIFO
-
-        best = s;  // initialisation de la meilleur solution
-
-        best_sats = Loading.sat.satisfiedClauses(best); // nombre de clauses satisfaites
+        /* the number of satisfied clauses*/
+        nbr_satisfied_clauses = Loading.sat.satisfiedClauses(bestSolution); 
         tmp_sats = 0;
 
-        startTime = System.currentTimeMillis(); // le temp de debut
+        /*get the starting time of the execution*/
+        timeStart = System.currentTimeMillis(); 
 
-        while (!Loading.sat.satisfied(s) && (System.currentTimeMillis() - startTime) < DEFAULT_TIMEOUT) {
-            if (s.getLvl() < Loading.VAR_NUM - 1) {
-                s.getKidsProfondeur(sols); // generation des fils
+        while (!Loading.sat.satisfied(solution) && (System.currentTimeMillis() - timeStart) < TIMEOUT_DEFAULT_VALUE) {
+            if (solution.getLevel() < Loading.VAR_NUM - 1) {
+            	/* generate the kids nodes */
+                solution.getDepthNodes(sols); 
             }
-            s = sols.pop(); // extraction du dernier element LIFO 
-            tmp_sats = Loading.sat.satisfiedClauses(s); // Mis a jours de la meilleur solution
-            if (tmp_sats > best_sats) {
-                best_sats = tmp_sats;
-                best = s;
+            /*extract the last element of the graph apply last in first out principle*/
+            solution = sols.pop();
+            /*update the best solution*/
+            tmp_sats = Loading.sat.satisfiedClauses(solution);
+            if (tmp_sats > nbr_satisfied_clauses) {
+                nbr_satisfied_clauses = tmp_sats;
+                bestSolution = solution;
             }
         }
 
-        stopTime = System.currentTimeMillis();
+        timeStop = System.currentTimeMillis();
 
-        printBestSolution(DEPTH_FIRST_ALGORITHM);// affichage de la solution
+        print_DFS_Best_Solution();
         
-        //stokage de donnees pour les graphe de statistique
-        int satisfactions = Loading.sat.satisfiedClauses(best); 
-        Long time_exe = stopTime - startTime;
-        float accuracy = (float) satisfactions / Loading.CLAUSE_NUMBER * 100;
-        System.out.println("satisfactions :"+satisfactions+"     ////////////    accuracy :"+ accuracy+" instence : "+ instence);
-		list_of_data_accuracyDFS.add(new XYChart.Data<Number, Number>(instence,accuracy));
-        list_of_data_satisfactionDFS.add(new Data<Number, Number>(instence,time_exe));
-		Run_Algo_Dfs.DEPTH_FIRST_TOTAL_TIME += stopTime - startTime; // ajout a global algo time
+       
+        int satisfiedClauses = Loading.sat.satisfiedClauses(bestSolution); 
+        Long execution_time = timeStop - timeStart;
+        float accuracyValue = (float) satisfiedClauses / Loading.CLAUSE_NUMBER * 100;
+        System.out.println("The Number of the satisfied clauses :"+satisfiedClauses+"\nThe accuracy for the instance "+ instance +" is:"+ accuracyValue +"%");
+        System.out.println("////////////////////////////////////////////");
+		list_accuracy_for_each_instance_DFS.add(new XYChart.Data<Number, Number>(instance,accuracyValue));
+        list__satisfaction_DFS_data.add(new Data<Number, Number>(instance,execution_time));
+        
+        /*set the total execution time*/
+		Run_Algo_Dfs.TOTAL_TIME_DFS += timeStop - timeStart; 
 
+    }
+
+    private void print_DFS_Best_Solution() {
+        System.out.println(" Solution:\n " + Arrays.toString(bestSolution.getArraySolution()));
+        //System.out.println("Satisfactions : " + Load.sat.satisfiedClauses(best) + " - " + (float) Load.sat.satisfiedClauses(best) / Load.CLAUSE_NUMBER * 100 + "%");
+        System.out.println("Execution Time : " + (timeStop - timeStart) + "ms");
+        
     }
 
 
