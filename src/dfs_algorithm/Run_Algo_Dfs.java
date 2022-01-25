@@ -7,7 +7,9 @@ public class Run_Algo_Dfs extends Run  {
     public static long TOTAL_TIME_DFS = 0;
     
     public static void dfsAlgorithmRun() {
-    	Run.run("dfs",TOTAL_TIME_DFS);
+    	Run.run("dfs");
+    	
+    	System.out.println("DFS Total Time = " + TOTAL_TIME_DFS + "ms");
 	}
 
 

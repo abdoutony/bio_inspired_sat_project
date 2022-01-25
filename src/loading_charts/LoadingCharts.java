@@ -2,6 +2,7 @@ package loading_charts;
 
 import a_star_algorithm.Algo_Body_AStar;
 import dfs_algorithm.Algo_Body_Dfs;
+import gen_algorithm.Algo_Body_Gen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
@@ -20,7 +21,7 @@ public class LoadingCharts {
 		XYChart.Series<Number, Number> algoDFSAccuracySerie = new XYChart.Series<Number, Number>();
 		algoDFSAccuracySerie.setName("The Accuracy of execution for each instance");
 		
-		for (XYChart.Data<Number,Number> data : Algo_Body_Dfs.list_accuracy_for_each_instance_DFS) {
+		for (XYChart.Data<Number,Number> data : Algo_Body_Dfs.listAccuracyForEachInstanceDFS) {
 			/* fill the series of the accuracies of each instance */
 			algoDFSAccuracySerie.getData().add(data);
 		}
@@ -36,19 +37,19 @@ public class LoadingCharts {
 		XYChart.Series<Number, Number> algoDFSExecutionTimeSerie = new XYChart.Series<Number, Number>();
 		algoDFSExecutionTimeSerie.setName("The execution time for each instence in ms");
 		
-		for (Data<Number, Number> data : Algo_Body_Dfs.list__satisfaction_DFS_data) {
+		for (Data<Number, Number> data : Algo_Body_Dfs.listSatisfactionDFSData) {
 			/* fill the series of the eecution time of each instance */
 		   algoDFSExecutionTimeSerie.getData().add(data);
 		}
 		/* fill the chart of the serie that contains the data */
 		lineChartDFS.getData().add(algoDFSExecutionTimeSerie);
-		Algo_Body_Dfs.list__satisfaction_DFS_data.clear();
+		Algo_Body_Dfs.listSatisfactionDFSData.clear();
 	}
 	
 	public static void pieChartDFS(PieChart pieChartDFS,ObservableList<Series<Number,Number>> seriesList) {
 		int i = 0;
 		float global_accuracy=0;
-		for (Data<Number, Number> data : Algo_Body_Dfs.list_accuracy_for_each_instance_DFS) {
+		for (Data<Number, Number> data : Algo_Body_Dfs.listAccuracyForEachInstanceDFS) {
 			global_accuracy = global_accuracy + Float.parseFloat(data.getYValue().toString());
 			i++;
 		}
@@ -57,7 +58,7 @@ public class LoadingCharts {
 		new PieChart.Data("Satisfied Instances (Global Accuracy): %"+global_accuracy,global_accuracy),
 		new PieChart.Data("Unsatisfied Instances (Global Accuracy): %"+(100-global_accuracy),100-global_accuracy));
 		pieChartDFS.setData(ol);
-		Algo_Body_Dfs.list_accuracy_for_each_instance_DFS.clear();
+		Algo_Body_Dfs.listAccuracyForEachInstanceDFS.clear();
 	}
 	
 	
@@ -67,7 +68,7 @@ public class LoadingCharts {
 		XYChart.Series<Number, Number> serieAstar = new XYChart.Series<Number, Number>();
 		serieAstar.setName("accuracy of Astar");
 	
-		for (XYChart.Data<Number,Number> data : Algo_Body_AStar.list_accuracy_for_each_instance_ASTAR) {
+		for (XYChart.Data<Number,Number> data : Algo_Body_AStar.listAccuracyForEachInstanceASTAR) {
 			serieAstar.getData().add(data);
 		}
 		
@@ -79,19 +80,19 @@ public class LoadingCharts {
 		XYChart.Series<Number, Number> s = new XYChart.Series<Number, Number>();
 		s.setName("Time exe for each instence in ms (Astar)");
 	
-		for (Data<Number, Number> data : Algo_Body_AStar.list__satisfaction_ASTAR_data) {
+		for (Data<Number, Number> data : Algo_Body_AStar.listSatisfactionASTARData) {
 			
 			s.getData().add(data);
 		}
 		
 		lineChartASTAR.getData().add(s);
-		Algo_Body_AStar.list__satisfaction_ASTAR_data.clear();
+		Algo_Body_AStar.listSatisfactionASTARData.clear();
 	}
 	
 	public static void pieChartASTAR(PieChart pieChartASTAR,ObservableList<Series<Number,Number>> seriesList) {
 		int i = 0;
 		float global_accuracy=0;
-		for (Data<Number, Number> data : Algo_Body_AStar.list_accuracy_for_each_instance_ASTAR) {
+		for (Data<Number, Number> data : Algo_Body_AStar.listAccuracyForEachInstanceASTAR) {
 			 global_accuracy = global_accuracy + Float.parseFloat(data.getYValue().toString());
 			 i++;
 		}
@@ -100,10 +101,51 @@ public class LoadingCharts {
 				new PieChart.Data("accuracy of global satisfed instences: %"+global_accuracy,global_accuracy),
 				new PieChart.Data("accuracy of global no satisfed instences: %"+(100-global_accuracy),100-global_accuracy));
 		pieChartASTAR.setData(ol);
-		Algo_Body_AStar.list_accuracy_for_each_instance_ASTAR.clear();
+		Algo_Body_AStar.listAccuracyForEachInstanceASTAR.clear();
 		
 	}
 	
+		/*////////////////////////////////// Gentic Algorithm charts ///////////////////////// */
 	
+	public static void scatterChartGEN(ScatterChart<Number,Number> scatterChartGEN,ObservableList<Series<Number,Number>> seriesList ) {
+		XYChart.Series<Number, Number> serieGEN = new XYChart.Series<Number, Number>();
+		serieGEN.setName("accuracy of GEN");
+	
+		for (XYChart.Data<Number,Number> data : Algo_Body_Gen.listAccuracyForEachInstanceGEN) {
+			serieGEN.getData().add(data);
+		}
+		
+		scatterChartGEN.getData().add(serieGEN);
+		seriesList.add(serieGEN);
+	}
+	
+	public static void lineChartGEN(LineChart<Number, Number> lineChartGEN,ObservableList<Series<Number,Number>> seriesList) {
+		XYChart.Series<Number, Number> serieGen = new XYChart.Series<Number, Number>();
+		serieGen.setName("Time exe for each instence in ms (GEN)");
+	
+		for (Data<Number, Number> data : Algo_Body_Gen.listSatisfactionGENData) {
+			
+			serieGen.getData().add(data);
+		}
+		
+		lineChartGEN.getData().add(serieGen);
+		Algo_Body_Gen.listSatisfactionGENData.clear();
+	}
+	
+	public static void pieChartGEN(PieChart pieChartGEN,ObservableList<Series<Number,Number>> seriesList) {
+		int i = 0;
+		float global_accuracy=0;
+		for (Data<Number, Number> data : Algo_Body_Gen.listAccuracyForEachInstanceGEN) {
+			 global_accuracy = global_accuracy + Float.parseFloat(data.getYValue().toString());
+			 i++;
+		}
+		global_accuracy = global_accuracy/i;
+		ObservableList<PieChart.Data> ol = FXCollections.observableArrayList(
+				new PieChart.Data("accuracy of global satisfed instences: %"+global_accuracy,global_accuracy),
+				new PieChart.Data("accuracy of global no satisfed instences: %"+(100-global_accuracy),100-global_accuracy));
+		pieChartGEN.setData(ol);
+		Algo_Body_Gen.listAccuracyForEachInstanceGEN.clear();
+		
+	}
 
 }

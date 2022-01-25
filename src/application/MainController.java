@@ -10,6 +10,8 @@ import a_star_algorithm.Run_Algo_AStar;
 import authentication.LoginController;
 import dfs_algorithm.Algo_Body_Dfs;
 import dfs_algorithm.Run_Algo_Dfs;
+import gen_algorithm.Algo_Body_Gen;
+import gen_algorithm.Run_Algo_Gen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -56,6 +58,22 @@ public class MainController implements Initializable {
 	@FXML private LineChart<Number, Number> lineChartASTAR;
 	@FXML private PieChart pieChartASTAR;
 	@FXML private Label TotalExecutionTimeASTAR;
+	
+	/* The variables used to deal with genitic algorithm */
+	@FXML private Spinner<Integer> nbrInstancesGEN ;
+	@FXML private Spinner<Integer> populationSizeGEN ;
+		  private int initialValuePopulation=75;
+	@FXML private Spinner<Double> crossOverChanceGEN ;
+		  private double initialValuedoubleCross = .95;
+	@FXML private Spinner<Double> mutationChanceGEN ;
+		  private double initialValuedoubleMutations = .05;
+	@FXML private Spinner<Integer> selectionSizeGEN ;
+		  private int initialValueSelection = 30;
+	@FXML private Slider timeOutGEN;
+	@FXML private ScatterChart<Number,Number> scatterChartGEN;
+	@FXML private LineChart<Number, Number> lineChartGEN;
+	@FXML private PieChart pieChartGEN;
+	@FXML private Label TotalExecutionTimeGEN;
      
 	/* Variable to trigger logout button */
     @FXML
@@ -90,7 +108,7 @@ public class MainController implements Initializable {
 		@FXML
 		public void executeDFS(ActionEvent e) {
 			Run_Algo_Dfs.INSTANCES_TO_USE = Integer.valueOf(nbrInstancesDFS.getValue());
-			Algo_Body_Dfs.TIMEOUT_DEFAULT_VALUE = (long)timeOutDFS.getValue();
+			Algo_Body_Dfs.timeOutDefaultValue = (long)timeOutDFS.getValue();
 			/* the function that runs the DFS Algorithm */
 			Run_Algo_Dfs.dfsAlgorithmRun();
 			/* Loading the graphs to show the results after executing the DFS Algorithm */
@@ -110,7 +128,7 @@ public class MainController implements Initializable {
 		public void executeASTAR(ActionEvent e) {
 			Run_Algo_AStar.INSTANCES_TO_USE = Integer.valueOf(nbrInstancesDFS.getValue());
 			//System.out.println(Load.NUMBER_OF_INSTANCES_TO_USE);
-			Algo_Body_AStar.TIMEOUT_DEFAULT_VALUE = (long)timeOutASTAR.getValue();
+			Algo_Body_AStar.timeOutDefaultValue = (long)timeOutASTAR.getValue();
 			//System.out.println(Algorithmes.DEFAULT_TIMEOUT);		
 			Run_Algo_AStar.astarAlgorithmRun();
 			/* Loading the graphs to show the results after executing the DFS Algorithm */
@@ -121,6 +139,24 @@ public class MainController implements Initializable {
 			Double execTime = (double)Run_Algo_AStar.TOTAL_TIME_ASTAR/60000;
 			TotalExecutionTimeASTAR.setText(new DecimalFormat("##.##").format(execTime)+" min");
 		}
+		
+		 
+		 @FXML
+		 void executeGen(ActionEvent event) {
+			   Algo_Body_Gen.timeOutDefaultValue=timeOutGEN.getValue();
+			   Algo_Body_Gen.nbrInstancesGen = Integer.valueOf(nbrInstancesGEN.getValue());
+			   Algo_Body_Gen.chanceOfCrossOver=Double.valueOf(crossOverChanceGEN.getValue());
+			   Algo_Body_Gen.chanceOfMutation =Double.valueOf(mutationChanceGEN.getValue());
+			   Algo_Body_Gen.sizeOfTheSelection = Integer.valueOf(selectionSizeGEN.getValue());
+			   Run_Algo_Gen.genAlgorithmRun();
+				LoadingCharts.scatterChartGEN(scatterChartGEN,seriesList);
+				LoadingCharts.lineChartGEN(lineChartGEN, seriesList);
+				LoadingCharts.pieChartGEN(pieChartGEN, seriesList);
+				
+				Double execTime = (double)Run_Algo_Gen.TOTAL_TIME_GEN/60000;
+				TotalExecutionTimeGEN.setText(new DecimalFormat("##.##").format(execTime)+" min");
+		 }
+
 	
 	 
 	@Override
@@ -129,6 +165,22 @@ public class MainController implements Initializable {
 		SpinnerValueFactory<Integer> svf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, initialValue);
 		nbrInstancesDFS.setValueFactory(svf);
 		nbrInstancesASTAR.setValueFactory(svf);
+		
+		nbrInstancesGEN.setValueFactory(svf);
+		
+		SpinnerValueFactory<Integer> svf_selection = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, initialValueSelection);
+		selectionSizeGEN.setValueFactory(svf_selection);
+		
+		SpinnerValueFactory<Integer> svf_population = new SpinnerValueFactory.IntegerSpinnerValueFactory(75, 80, initialValuePopulation);
+		populationSizeGEN.setValueFactory(svf_population);
+		
+		SpinnerValueFactory<Double> svf_double_cross = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 2, initialValuedoubleCross,0.01);
+		crossOverChanceGEN.setValueFactory(svf_double_cross);
+		
+		SpinnerValueFactory<Double> svf_double_mutation = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 2, initialValuedoubleMutations,0.01);
+		mutationChanceGEN.setValueFactory(svf_double_mutation);		 
+		 
+
 		
 	}
 }

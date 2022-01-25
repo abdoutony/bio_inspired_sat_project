@@ -13,20 +13,17 @@ import loading_sat_dataset.Loading;
 
 public class Algo_Body_Dfs {
 	
-	public static  long TIMEOUT_DEFAULT_VALUE = 6000; // en ms
-    public static List<XYChart.Data<Number, Number>> list_accuracy_for_each_instance_DFS = new ArrayList<XYChart.Data<Number,Number>>();
-    public static List<XYChart.Data<Number, Number>> list__satisfaction_DFS_data = new ArrayList<XYChart.Data<Number,Number>>();
-    /*private static final String Dfs_Algorithm = "DFS"; */// en ms
-
+	public static  long timeOutDefaultValue = 6000; 
+    public static List<XYChart.Data<Number, Number>> listAccuracyForEachInstanceDFS = new ArrayList<XYChart.Data<Number,Number>>();
+    public static List<XYChart.Data<Number, Number>> listSatisfactionDFSData = new ArrayList<XYChart.Data<Number,Number>>();
     private long timeStart, timeStop;
     private Solution bestSolution;
-
-    private int nbr_satisfied_clauses;
-    private int tmp_sats;
+    private int nbrSatisfiedClauses;
+    private int satsTmp;
     
 
     /* the body of the dfs algorithm */
-    public void dfsAlgorithmBody(int instance) {
+    public void algoBody(int instance) {
 
     	/*instanciate variable with 0 value*/
         int[] values = new int[Loading.VAR_NUM]; 
@@ -45,13 +42,13 @@ public class Algo_Body_Dfs {
         bestSolution = solution;
 
         /* the number of satisfied clauses*/
-        nbr_satisfied_clauses = Loading.sat.satisfiedClauses(bestSolution); 
-        tmp_sats = 0;
+        nbrSatisfiedClauses = Loading.sat.satisfiedClauses(bestSolution); 
+        satsTmp = 0;
 
         /*get the starting time of the execution*/
         timeStart = System.currentTimeMillis(); 
 
-        while (!Loading.sat.satisfied(solution) && (System.currentTimeMillis() - timeStart) < TIMEOUT_DEFAULT_VALUE) {
+        while (!Loading.sat.satisfied(solution) && (System.currentTimeMillis() - timeStart) < timeOutDefaultValue) {
             if (solution.getLevel() < Loading.VAR_NUM - 1) {
             	/* generate the kids nodes */
                 solution.getDepthNodes(sols); 
@@ -59,9 +56,9 @@ public class Algo_Body_Dfs {
             /*extract the last element of the graph apply last in first out principle*/
             solution = sols.pop();
             /*update the best solution*/
-            tmp_sats = Loading.sat.satisfiedClauses(solution);
-            if (tmp_sats > nbr_satisfied_clauses) {
-                nbr_satisfied_clauses = tmp_sats;
+            satsTmp = Loading.sat.satisfiedClauses(solution);
+            if (satsTmp > nbrSatisfiedClauses) {
+                nbrSatisfiedClauses = satsTmp;
                 bestSolution = solution;
             }
         }
@@ -76,8 +73,8 @@ public class Algo_Body_Dfs {
         float accuracyValue = (float) satisfiedClauses / Loading.CLAUSE_NUMBER * 100;
         System.out.println("The Number of the satisfied clauses :"+satisfiedClauses+"\nThe accuracy for the instance "+ instance +" is:"+ accuracyValue +"%");
         System.out.println("////////////////////////////////////////////");
-		list_accuracy_for_each_instance_DFS.add(new XYChart.Data<Number, Number>(instance,accuracyValue));
-        list__satisfaction_DFS_data.add(new Data<Number, Number>(instance,execution_time));
+		listAccuracyForEachInstanceDFS.add(new XYChart.Data<Number, Number>(instance,accuracyValue));
+        listSatisfactionDFSData.add(new Data<Number, Number>(instance,execution_time));
         
         /*set the total execution time*/
 		Run_Algo_Dfs.TOTAL_TIME_DFS += timeStop - timeStart; 
