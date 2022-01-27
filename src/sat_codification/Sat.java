@@ -2,8 +2,8 @@ package sat_codification;
 
 import java.util.List;
 
-import aco.Ant;
 import algos_dfs_astar_global_classes.Solution;
+import ant_colony_optimization_algorithm.AgentAnt;
 import sat_codification.Clause;
 import sat_codification.Litteral;
 
@@ -40,8 +40,8 @@ public class Sat {
 	    }
 	    
 	    //////////////////////////////////////////  ANT COLONY OPTIMISATION 
-	    public boolean satisfied(Ant solution) {
-	        int[] values = solution.getValues();
+	    public boolean satisfied(AgentAnt solution) {
+	        int[] values = solution.getArraySolution();
 	        boolean sat = false;
 	        for (Clause c : listClauses) {
 	            sat = false;

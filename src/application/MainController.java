@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import a_star_algorithm.Algo_Body_AStar;
 import a_star_algorithm.Run_Algo_AStar;
+import ant_colony_optimization_algorithm.Algo_Body_Aco;
+import ant_colony_optimization_algorithm.Run_Algo_Aco;
 import authentication.LoginController;
 import dfs_algorithm.Algo_Body_Dfs;
 import dfs_algorithm.Run_Algo_Dfs;
@@ -44,37 +46,93 @@ public class MainController implements Initializable {
     
 	/*The variable used to deal with Depth first search algorithm*/
     int initialValue = 10;
-	@FXML private Spinner<Integer> nbrInstancesDFS ;
-	@FXML private Slider timeOutDFS;
-	@FXML private ScatterChart<Number,Number> scatterChartDFS;
-	@FXML private LineChart<Number, Number> lineChartDFS;
-	@FXML private PieChart pieChartDFS;
-	@FXML private Label TotalExecutionTimeDFS;
+	@FXML 
+	private Spinner<Integer> nbrInstancesDFS ;
+	@FXML 
+	private Slider timeOutDFS;
+	@FXML 
+	private ScatterChart<Number,Number> scatterChartDFS;
+	@FXML 
+	private LineChart<Number, Number> lineChartDFS;
+	@FXML 
+	private PieChart pieChartDFS;
+	@FXML 
+	private Label TotalExecutionTimeDFS;
 	
 	/* The variables used to deal with a star algorithm */
-	@FXML private Spinner<Integer> nbrInstancesASTAR ;
-	@FXML private Slider timeOutASTAR;
-	@FXML private ScatterChart<Number,Number> scatterChartASTAR;
-	@FXML private LineChart<Number, Number> lineChartASTAR;
+	@FXML 
+	private Spinner<Integer> nbrInstancesASTAR ;
+	@FXML 
+	private Slider timeOutASTAR;
+	@FXML 
+	private ScatterChart<Number,Number> scatterChartASTAR;
+	@FXML 
+	private LineChart<Number, Number> lineChartASTAR;
 	@FXML private PieChart pieChartASTAR;
-	@FXML private Label TotalExecutionTimeASTAR;
+	@FXML 
+	private Label TotalExecutionTimeASTAR;
 	
 	/* The variables used to deal with genitic algorithm */
-	@FXML private Spinner<Integer> nbrInstancesGEN ;
-	@FXML private Spinner<Integer> populationSizeGEN ;
-		  private int initialValuePopulation=75;
-	@FXML private Spinner<Double> crossOverChanceGEN ;
-		  private double initialValuedoubleCross = .95;
-	@FXML private Spinner<Double> mutationChanceGEN ;
-		  private double initialValuedoubleMutations = .05;
-	@FXML private Spinner<Integer> selectionSizeGEN ;
-		  private int initialValueSelection = 30;
-	@FXML private Slider timeOutGEN;
-	@FXML private ScatterChart<Number,Number> scatterChartGEN;
-	@FXML private LineChart<Number, Number> lineChartGEN;
-	@FXML private PieChart pieChartGEN;
-	@FXML private Label TotalExecutionTimeGEN;
-     
+	@FXML 
+	private Spinner<Integer> nbrInstancesGEN ;
+	@FXML 
+	private Spinner<Integer> populationSizeGEN ; 
+	@FXML 
+	private Spinner<Double> crossOverChanceGEN ; 
+	@FXML 
+	private Spinner<Double> mutationChanceGEN ;
+	@FXML 
+	private Spinner<Integer> selectionSizeGEN ;
+	@FXML 
+	private Slider timeOutGEN;
+	@FXML 
+	private ScatterChart<Number,Number> scatterChartGEN;
+	@FXML 
+	private LineChart<Number, Number> lineChartGEN;
+	@FXML 
+	private PieChart pieChartGEN;
+	@FXML 
+	private Label TotalExecutionTimeGEN;
+	private int initialValuePopulation=75;
+	private double initialValuedoubleCross = .95;
+	private double initialValuedoubleMutations = .05;
+	private int initialValueSelection = 30;
+	
+	
+	/* The variables used to deal with ACO algorithm */
+
+ 	@FXML
+    private Spinner<Double> alphaValueACO;
+    @FXML
+    private Spinner<Double> betaValueACO;
+    @FXML
+    private Spinner<Double> vrateValueACO;
+    @FXML
+    private Spinner<Integer> maxNbrIterationsACO;
+    @FXML
+    private Spinner<Integer> nbrInstancesACO;
+    @FXML
+    private Spinner<Integer> nbrAntsACO;
+    @FXML
+    private Slider timeOutACO;
+    @FXML
+    private Label TotalExecutionTimeACO;
+    @FXML
+    private ScatterChart<Number,Number> scatterChartACO;
+    @FXML
+    private LineChart<Number, Number> lineChartACO;
+    @FXML 
+    private PieChart pieChartACO;
+	double alphaInitialValue=0.3;
+	double betaInitialValue=0.1;
+	double vrateInitialValue=0.1;
+	int nbrMaxIterationsInitialValue=50000;
+	int nbrInstancesInitialValue=10;
+	int nbrAntsInitialValue=100;
+    
+    @FXML
+    private LineChart<Number,Number> lineChartComparaison;
+
 	/* Variable to trigger logout button */
     @FXML
     private Button LogoutBtn;
@@ -107,7 +165,7 @@ public class MainController implements Initializable {
 		/* function to execute depth first search algorithm */
 		@FXML
 		public void executeDFS(ActionEvent e) {
-			Run_Algo_Dfs.INSTANCES_TO_USE = Integer.valueOf(nbrInstancesDFS.getValue());
+			Run_Algo_Dfs.instancesToUse = Integer.valueOf(nbrInstancesDFS.getValue());
 			Algo_Body_Dfs.timeOutDefaultValue = (long)timeOutDFS.getValue();
 			/* the function that runs the DFS Algorithm */
 			Run_Algo_Dfs.dfsAlgorithmRun();
@@ -116,7 +174,7 @@ public class MainController implements Initializable {
 			LoadingCharts.lineChartDFS(lineChartDFS, seriesList);
 			LoadingCharts.pieChartDFS(pieChartDFS, seriesList);
 			/* calculating and setting the total execution time of the DFS Algorithm */
-			Double execTime = (double)Run_Algo_Dfs.TOTAL_TIME_DFS/60000;
+			Double execTime = (double)Run_Algo_Dfs.totalTimeDFS/60000;
 			TotalExecutionTimeDFS.setText(new DecimalFormat("##.##").format(execTime)+" min");
 		}
 		
@@ -126,7 +184,7 @@ public class MainController implements Initializable {
 		
 		@FXML
 		public void executeASTAR(ActionEvent e) {
-			Run_Algo_AStar.INSTANCES_TO_USE = Integer.valueOf(nbrInstancesDFS.getValue());
+			Run_Algo_AStar.instancesToUse = Integer.valueOf(nbrInstancesDFS.getValue());
 			//System.out.println(Load.NUMBER_OF_INSTANCES_TO_USE);
 			Algo_Body_AStar.timeOutDefaultValue = (long)timeOutASTAR.getValue();
 			//System.out.println(Algorithmes.DEFAULT_TIMEOUT);		
@@ -136,10 +194,11 @@ public class MainController implements Initializable {
 			LoadingCharts.lineChartASTAR(lineChartASTAR, seriesList);
 			LoadingCharts.pieChartASTAR(pieChartASTAR, seriesList);	
 			/* calculating and setting the total execution time of the DFS Algorithm */
-			Double execTime = (double)Run_Algo_AStar.TOTAL_TIME_ASTAR/60000;
+			Double execTime = (double)Run_Algo_AStar.totalTimeASTAR/60000;
 			TotalExecutionTimeASTAR.setText(new DecimalFormat("##.##").format(execTime)+" min");
 		}
-		
+		 
+		/*  ///////////////////// Gentic Algorithm ///////////////////////////////// */
 		 
 		 @FXML
 		 void executeGen(ActionEvent event) {
@@ -153,11 +212,35 @@ public class MainController implements Initializable {
 				LoadingCharts.lineChartGEN(lineChartGEN, seriesList);
 				LoadingCharts.pieChartGEN(pieChartGEN, seriesList);
 				
-				Double execTime = (double)Run_Algo_Gen.TOTAL_TIME_GEN/60000;
+				Double execTime = (double)Run_Algo_Gen.totalTimeGEN/60000;
 				TotalExecutionTimeGEN.setText(new DecimalFormat("##.##").format(execTime)+" min");
 		 }
+		 
+			/*  ///////////////////// Ant colony optimization Algorithm ///////////////////////////////// */
 
-	
+	    @FXML
+	    void executeAco(ActionEvent envent) {
+	    	Algo_Body_Aco.vrateValue= Double.valueOf(vrateValueACO.getValue());
+	    	Algo_Body_Aco.alphaValue = Double.valueOf(alphaValueACO.getValue());
+	    	Algo_Body_Aco.betaValue = Double.valueOf(betaValueACO.getValue());
+	    	Algo_Body_Aco.nbrMaxIterations = Integer.valueOf(maxNbrIterationsACO.getValue());
+	    	Algo_Body_Aco.nbtInstancesACO = Integer.valueOf(nbrInstancesACO.getValue());
+	    	Algo_Body_Aco.timeOutDefaultValue = timeOutACO.getValue();
+	    	Run_Algo_Aco.acoAlgorithmRun();
+	    	LoadingCharts.scatterChartACO(scatterChartACO,seriesList);
+			LoadingCharts.lineChartACO(lineChartACO, seriesList);
+			LoadingCharts.pieChartACO(pieChartACO, seriesList);	
+	    	Double execTime = (double)Run_Algo_Aco.totalTimeAco/60000;
+			TotalExecutionTimeACO.setText(new DecimalFormat("##.##").format(execTime)+" min");
+	    }
+	    
+	    @FXML
+		void executeComparaison(ActionEvent event) {
+			
+			lineChartComparaison.getData().addAll(seriesList);
+
+		}
+		 
 	 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -180,6 +263,18 @@ public class MainController implements Initializable {
 		SpinnerValueFactory<Double> svf_double_mutation = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 2, initialValuedoubleMutations,0.01);
 		mutationChanceGEN.setValueFactory(svf_double_mutation);		 
 		 
+		
+		SpinnerValueFactory<Double> spfAlphaACS = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 1, alphaInitialValue,0.001);
+		alphaValueACO.setValueFactory(spfAlphaACS);
+		SpinnerValueFactory<Double> spfBetaACS = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 1, betaInitialValue,0.01);
+		betaValueACO.setValueFactory(spfBetaACS);
+		SpinnerValueFactory<Double> spfVrateACS = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 1, vrateInitialValue,0.01);
+		vrateValueACO.setValueFactory(spfVrateACS);
+		nbrInstancesACO.setValueFactory(svf);
+		SpinnerValueFactory<Integer> svfMaxIter = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100000, nbrMaxIterationsInitialValue);
+		maxNbrIterationsACO.setValueFactory(svfMaxIter);
+		SpinnerValueFactory<Integer> svfNbrAnt = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 200, nbrAntsInitialValue);
+		nbrAntsACO.setValueFactory(svfNbrAnt);
 
 		
 	}

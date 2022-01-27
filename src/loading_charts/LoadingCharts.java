@@ -1,6 +1,7 @@
 package loading_charts;
 
 import a_star_algorithm.Algo_Body_AStar;
+import ant_colony_optimization_algorithm.Algo_Body_Aco;
 import dfs_algorithm.Algo_Body_Dfs;
 import gen_algorithm.Algo_Body_Gen;
 import javafx.collections.FXCollections;
@@ -18,9 +19,7 @@ public class LoadingCharts {
 	
 	public static void scatterChartDFS(ScatterChart<Number,Number> scatterChartDFS,ObservableList<Series<Number,Number>> seriesList ) {
 		/* declare the scatter chart that contains the accuracy of execution for each instance of DFS Algorithm */
-		XYChart.Series<Number, Number> algoDFSAccuracySerie = new XYChart.Series<Number, Number>();
-		algoDFSAccuracySerie.setName("The Accuracy of execution for each instance");
-		
+		XYChart.Series<Number, Number> algoDFSAccuracySerie = new XYChart.Series<Number, Number>();	
 		for (XYChart.Data<Number,Number> data : Algo_Body_Dfs.listAccuracyForEachInstanceDFS) {
 			/* fill the series of the accuracies of each instance */
 			algoDFSAccuracySerie.getData().add(data);
@@ -34,9 +33,7 @@ public class LoadingCharts {
 	}
 	public static void lineChartDFS(LineChart<Number, Number> lineChartDFS,ObservableList<Series<Number,Number>> seriesList) {
 		/* declare the line chart that contains the  execution time for each instance of DFS Algorithm */
-		XYChart.Series<Number, Number> algoDFSExecutionTimeSerie = new XYChart.Series<Number, Number>();
-		algoDFSExecutionTimeSerie.setName("The execution time for each instence in ms");
-		
+		XYChart.Series<Number, Number> algoDFSExecutionTimeSerie = new XYChart.Series<Number, Number>();		
 		for (Data<Number, Number> data : Algo_Body_Dfs.listSatisfactionDFSData) {
 			/* fill the series of the eecution time of each instance */
 		   algoDFSExecutionTimeSerie.getData().add(data);
@@ -66,8 +63,6 @@ public class LoadingCharts {
 	
 	public static void scatterChartASTAR(ScatterChart<Number,Number> scatterChartDFS,ObservableList<Series<Number,Number>> seriesList ) {
 		XYChart.Series<Number, Number> serieAstar = new XYChart.Series<Number, Number>();
-		serieAstar.setName("accuracy of Astar");
-	
 		for (XYChart.Data<Number,Number> data : Algo_Body_AStar.listAccuracyForEachInstanceASTAR) {
 			serieAstar.getData().add(data);
 		}
@@ -77,15 +72,12 @@ public class LoadingCharts {
 	}
 	
 	public static void lineChartASTAR(LineChart<Number, Number> lineChartASTAR,ObservableList<Series<Number,Number>> seriesList) {
-		XYChart.Series<Number, Number> s = new XYChart.Series<Number, Number>();
-		s.setName("Time exe for each instence in ms (Astar)");
-	
+		XYChart.Series<Number, Number> serieAstar = new XYChart.Series<Number, Number>();
 		for (Data<Number, Number> data : Algo_Body_AStar.listSatisfactionASTARData) {
-			
-			s.getData().add(data);
+			serieAstar.getData().add(data);
 		}
 		
-		lineChartASTAR.getData().add(s);
+		lineChartASTAR.getData().add(serieAstar);
 		Algo_Body_AStar.listSatisfactionASTARData.clear();
 	}
 	
@@ -108,9 +100,7 @@ public class LoadingCharts {
 		/*////////////////////////////////// Gentic Algorithm charts ///////////////////////// */
 	
 	public static void scatterChartGEN(ScatterChart<Number,Number> scatterChartGEN,ObservableList<Series<Number,Number>> seriesList ) {
-		XYChart.Series<Number, Number> serieGEN = new XYChart.Series<Number, Number>();
-		serieGEN.setName("accuracy of GEN");
-	
+		XYChart.Series<Number, Number> serieGEN = new XYChart.Series<Number, Number>();	
 		for (XYChart.Data<Number,Number> data : Algo_Body_Gen.listAccuracyForEachInstanceGEN) {
 			serieGEN.getData().add(data);
 		}
@@ -121,10 +111,7 @@ public class LoadingCharts {
 	
 	public static void lineChartGEN(LineChart<Number, Number> lineChartGEN,ObservableList<Series<Number,Number>> seriesList) {
 		XYChart.Series<Number, Number> serieGen = new XYChart.Series<Number, Number>();
-		serieGen.setName("Time exe for each instence in ms (GEN)");
-	
 		for (Data<Number, Number> data : Algo_Body_Gen.listSatisfactionGENData) {
-			
 			serieGen.getData().add(data);
 		}
 		
@@ -145,6 +132,44 @@ public class LoadingCharts {
 				new PieChart.Data("accuracy of global no satisfed instences: %"+(100-global_accuracy),100-global_accuracy));
 		pieChartGEN.setData(ol);
 		Algo_Body_Gen.listAccuracyForEachInstanceGEN.clear();
+		
+	}
+	 
+	/*////////////////////////////////// Ant Colony Optimization Algorithm charts ///////////////////////// */
+	public static void scatterChartACO(ScatterChart<Number,Number> scatterChartACO,ObservableList<Series<Number,Number>> seriesList ) {
+		XYChart.Series<Number, Number> serieACO = new XYChart.Series<Number, Number>();
+		for (XYChart.Data<Number,Number> data : Algo_Body_Aco.listAccuracyForEachInstanceACO) {
+			serieACO.getData().add(data);
+		}
+		
+		scatterChartACO.getData().add(serieACO);
+		seriesList.add(serieACO);
+	}
+	
+	public static void lineChartACO(LineChart<Number, Number> lineChartACO,ObservableList<Series<Number,Number>> seriesList) {
+		XYChart.Series<Number, Number> serieAco = new XYChart.Series<Number, Number>();
+		for (Data<Number, Number> data : Algo_Body_Aco.listSatisfactionACOData) {
+			
+			serieAco.getData().add(data);
+		}
+		
+		lineChartACO.getData().add(serieAco);
+		Algo_Body_Aco.listSatisfactionACOData.clear();
+	}
+	
+	public static void pieChartACO(PieChart pieChartACO,ObservableList<Series<Number,Number>> seriesList) {
+		int i = 0;
+		float global_accuracy=0;
+		for (Data<Number, Number> data : Algo_Body_Aco.listAccuracyForEachInstanceACO) {
+			 global_accuracy = global_accuracy + Float.parseFloat(data.getYValue().toString());
+			 i++;
+		}
+		global_accuracy = global_accuracy/i;
+		ObservableList<PieChart.Data> ol = FXCollections.observableArrayList(
+				new PieChart.Data("accuracy of global satisfed instences: %"+global_accuracy,global_accuracy),
+				new PieChart.Data("accuracy of global no satisfed instences: %"+(100-global_accuracy),100-global_accuracy));
+		pieChartACO.setData(ol);
+		Algo_Body_Aco.listAccuracyForEachInstanceACO.clear();
 		
 	}
 

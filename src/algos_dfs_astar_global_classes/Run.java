@@ -5,11 +5,11 @@ import dfs_algorithm.Algo_Body_Dfs;
 import loading_sat_dataset.Loading;
 
 public class Run {
-	public static int INSTANCES_TO_USE = 3;
+	public static int instancesToUse = 3;
 	
 	public static void run(String algorithm) {
 		
-		 for (int x = 1; x <= INSTANCES_TO_USE; x++) {
+		 for (int x = 1; x <= instancesToUse; x++) {
 	            System.out.println("Instance number: " + x);
 	            Loading.sat = Loading.LoadSat("/res/uf75-325/uf75-0" + x + ".cnf");
 	            if(algorithm=="dfs") {

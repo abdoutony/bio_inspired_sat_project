@@ -223,7 +223,7 @@
                            </children>
                         </AnchorPane>
 
-                                  <ScrollPane fitToWidth="true" layoutX="177.0" layoutY="-2.0" pannable="true" prefHeight="322.0" prefWidth="584.0" styleClass="background-dark">
+                         <ScrollPane fitToWidth="true" layoutX="177.0" layoutY="-2.0" pannable="true" prefHeight="322.0" prefWidth="584.0" styleClass="background-dark">
                            <content>
                               <AnchorPane prefHeight="800.0" prefWidth="579.0" styleClass="background-dark">
                                  <children>
@@ -285,12 +285,152 @@
             </Tab>
             <Tab text="ACO Algo">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                         <AnchorPane prefHeight="321.0" prefWidth="177.0" styleClass="background-gray">
+                           <children>
+                              <ScrollPane layoutX="5.0" layoutY="1.0" prefHeight="334.0" prefWidth="171.0" style="-fx-background-color: transparent;">
+                                 <content>
+                                    <VBox prefHeight="333.0" prefWidth="164.0">
+                                       <children>
+                                          <Label text="Parameters">
+                                             <font>
+                                                <Font name="System Bold" size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="Number of instances" />
+                                          <Spinner fx:id="nbrInstancesACO" accessibleRole="INCREMENT_BUTTON" editable="true" />
+                                          <Label text="Max number of iterations" />
+                                          <Spinner fx:id="maxNbrIterationsACO" accessibleRole="INCREMENT_BUTTON" editable="true" />
+                                          <Label text="Number of Ants" />
+                                          <Spinner fx:id="nbrAntsACO" accessibleRole="INCREMENT_BUTTON" editable="true" />
+                                          <Label text="Alpha" />
+                                          <Spinner fx:id="alphaValueACO" accessibleRole="INCREMENT_BUTTON" editable="true" />
+                                          <Label text="Beta" />
+                                          <Spinner fx:id="betaValueACO" accessibleRole="INCREMENT_BUTTON" editable="true" />
+                                          <Label text="VRate" />
+                                          <Spinner fx:id="vrateValueACO" accessibleRole="INCREMENT_BUTTON" editable="true">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Spinner>
+                                           
+                                          <Label text="Timeout " />
+                                          <Slider fx:id="timeOutACO" blockIncrement="1000.0" max="10000.0" min="2000.0" showTickLabels="true" />
+                                          <Button mnemonicParsing="false" onAction="#executeAco" text="Run Algorithm" />
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                          <ScrollPane fitToWidth="true" layoutX="177.0" layoutY="-2.0" pannable="true" prefHeight="322.0" prefWidth="584.0" styleClass="background-dark">
+                           <content>
+                              <AnchorPane prefHeight="800.0" prefWidth="579.0" styleClass="background-dark">
+                                 <children>
+                                    <Label layoutX="219.0" layoutY="58.0" text="Total execution time" textFill="WHITE">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="TotalExecutionTimeACO" alignment="CENTER" contentDisplay="CENTER" layoutX="224.0" layoutY="86.0" prefHeight="37.0" prefWidth="116.0" textAlignment="CENTER">
+                                       <styleClass>
+                                          <String fx:value="background-gray" />
+                                          <String fx:value="text-dark" />
+                                       </styleClass>
+                                    </Label>
+                                    <Label layoutX="87.0" layoutY="24.0" text="The execution results of ACO Algorithm" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <VBox layoutX="25.0" layoutY="146.0">
+                                       <children>
+                                          <ScatterChart fx:id="scatterChartACO" styleClass="background-gray" title="The accuracy for each instance">
+                                            <xAxis>
+                                              <NumberAxis label="Instance" side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                              <NumberAxis label="Accuracy value" side="LEFT" />
+                                            </yAxis>
+                                              <VBox.margin>
+                                                <Insets bottom="50.0" />
+                                             </VBox.margin>
+                                          </ScatterChart>
+                                          <LineChart fx:id="lineChartACO" styleClass="background-gray" title="The execution time for each instance">
+                                            <xAxis>
+                                              <NumberAxis label="Instance" side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                              <NumberAxis label="Time" side="LEFT" />
+                                            </yAxis>
+                                             <VBox.margin>
+                                                <Insets bottom="50.0" />
+                                             </VBox.margin>
+                                          </LineChart>
+                                   
+                                          <PieChart fx:id="pieChartACO" styleClass="background-gray" title="Satisfied vs Unsatisfied (instances)">
+                                             <VBox.margin>
+                                                <Insets bottom="50.0" />
+                                             </VBox.margin>
+                                          </PieChart>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                    </children>
+                  </AnchorPane>
                </content>
             </Tab>
             <Tab text="Comparaison">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                         <AnchorPane prefHeight="321.0" prefWidth="177.0" styleClass="background-gray">
+                           <children>
+                              <Button layoutX="27.0" layoutY="62.0" onAction="#executeComparaison"  mnemonicParsing="false" prefHeight="43.0" prefWidth="116.0" text="Run" />
+                              <Label layoutX="13.0" layoutY="20.0" text="Run comparaison">
+                                 <font>
+                                    <Font name="System Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                           <ScrollPane fitToWidth="true" layoutX="177.0" layoutY="-2.0" pannable="true" prefHeight="322.0" prefWidth="584.0" styleClass="background-dark">
+                           <content>
+                              <AnchorPane prefHeight="800.0" prefWidth="579.0" styleClass="background-dark">
+                                 <children>
+                                    
+                  
+                                    <Label layoutX="55.0" layoutY="60.0" text="The results of comparaison between algorithms" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <VBox layoutX="25.0" layoutY="146.0">
+                                       <children>
+                                          <LineChart fx:id="lineChartComparaison" styleClass="background-gray" >
+                                            <xAxis>
+                                              <NumberAxis label="Instance" side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                              <NumberAxis label="Accuracy" side="LEFT" />
+                                            </yAxis>
+                                             <VBox.margin>
+                                                <Insets bottom="50.0" />
+                                             </VBox.margin>
+                                          </LineChart>
+                                 
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
                </content>
             </Tab>
         </tabs>

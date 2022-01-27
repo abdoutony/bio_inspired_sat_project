@@ -12,7 +12,7 @@ import sat_codification.Sat;
 
 public class Run_Algo_Gen {
     public static Sat sat;
-    public static long TOTAL_TIME_GEN = 0; 
+    public static long totalTimeGEN = 0; 
     
     
     public Run_Algo_Gen() {

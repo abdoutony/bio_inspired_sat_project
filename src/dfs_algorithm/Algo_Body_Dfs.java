@@ -77,7 +77,7 @@ public class Algo_Body_Dfs {
         listSatisfactionDFSData.add(new Data<Number, Number>(instance,execution_time));
         
         /*set the total execution time*/
-		Run_Algo_Dfs.TOTAL_TIME_DFS += timeStop - timeStart; 
+		Run_Algo_Dfs.totalTimeDFS += timeStop - timeStart; 
 
     }
 

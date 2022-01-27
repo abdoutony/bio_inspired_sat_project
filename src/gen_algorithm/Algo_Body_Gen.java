@@ -38,7 +38,7 @@ public class Algo_Body_Gen {
 	                iterationCounter++;
 	            }
 	            
-	            Run_Algo_Gen.TOTAL_TIME_GEN += System.currentTimeMillis() - timeStart;
+	            Run_Algo_Gen.totalTimeGEN += System.currentTimeMillis() - timeStart;
 	          
 	            /* save data for to be displayed on graphs */
 	            int numberOfSatisifiedClauses = g1.returnBestSolution().getValueFitness(); 

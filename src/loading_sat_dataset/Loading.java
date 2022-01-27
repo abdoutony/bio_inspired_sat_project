@@ -7,7 +7,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import aco.ACO;
+import ant_colony_optimization_algorithm.Algo_Body_Aco;
+import ant_colony_optimization_algorithm.Run_Algo_Aco;
 import sat_codification.Clause;
 import sat_codification.Litteral;
 import sat_codification.Sat;
@@ -54,7 +55,7 @@ public class Loading {
 	                        lit = line.split(" ");
 	                        VAR_NUM = Integer.parseInt(lit[0]);
 	                        CLAUSE_NUMBER = Integer.parseInt(lit[1]);
-	                        ACO.FITNESS = new int[VAR_NUM][2];
+	                        Algo_Body_Aco.arrayFitness = new int[VAR_NUM][2];
 	                        continue;
 	                    }
 	                    litterals = new ArrayList<Litteral>();
@@ -66,10 +67,10 @@ public class Loading {
 	                    for (int i = 0; i < 3; i++) {
 	                        tmpParseInt = Integer.parseInt(lit[i]);
 	                        if (tmpParseInt > 0) {
-	                            ACO.FITNESS[tmpParseInt - 1][1]++;
+	                            Algo_Body_Aco.arrayFitness[tmpParseInt - 1][1]++;
 	                            litteral = new Litteral(tmpParseInt, 1);
 	                        } else {
-	                            ACO.FITNESS[-(tmpParseInt) - 1][0]++;
+	                        	Algo_Body_Aco.arrayFitness[-(tmpParseInt) - 1][0]++;
 	                            litteral = new Litteral(-tmpParseInt, -1);
 	                        }
 	                        litterals.add(litteral);

@@ -65,7 +65,7 @@ public class Algo_Body_AStar {
         System.out.println("satisfactions :"+numberOfSatisfiedClauses+"     ////////////    accuracy :"+ valueOfAccuracy+" instence : "+ instence);
         listAccuracyForEachInstanceASTAR.add(new XYChart.Data<Number, Number>(instence,valueOfAccuracy));
         listSatisfactionASTARData.add(new Data<Number, Number>(instence,executionTime));
-        Run_Algo_AStar.TOTAL_TIME_ASTAR += timeStop - timeStart;
+        Run_Algo_AStar.totalTimeASTAR += timeStop - timeStart;
 
     }
 }
