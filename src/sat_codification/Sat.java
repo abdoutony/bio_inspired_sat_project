@@ -2,8 +2,8 @@ package sat_codification;
 
 import java.util.List;
 
+import algo_aco_global_classes.AgentAnt;
 import algos_dfs_astar_global_classes.Solution;
-import ant_colony_optimization_algorithm.AgentAnt;
 import sat_codification.Clause;
 import sat_codification.Litteral;
 

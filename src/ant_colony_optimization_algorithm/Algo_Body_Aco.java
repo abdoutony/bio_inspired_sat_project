@@ -3,6 +3,7 @@ package ant_colony_optimization_algorithm;
 import java.util.ArrayList;
 import java.util.List;
 
+import algo_aco_global_classes.AgentAnt;
 import javafx.scene.chart.XYChart.Data;
 import loading_sat_dataset.Loading;
 

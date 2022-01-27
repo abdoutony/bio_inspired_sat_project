@@ -1,5 +1,7 @@
-package ant_colony_optimization_algorithm;
+package algo_aco_global_classes;
 
+import ant_colony_optimization_algorithm.Algo_Body_Aco;
+import ant_colony_optimization_algorithm.Run_Algo_Aco;
 import loading_sat_dataset.Loading;
 
 public class AgentAnt {
