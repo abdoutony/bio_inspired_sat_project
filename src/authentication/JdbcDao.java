@@ -9,21 +9,18 @@ import java.sql.SQLException;
 
 public class JdbcDao {
 
-    // Replace below database url, username and password with your actual database credentials
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/bioInspiredProject";
-    private static final String DATABASE_USERNAME = "root";
-    private static final String DATABASE_PASSWORD = "";
-    private static final String SELECT_QUERY = "SELECT * FROM admins WHERE username = ? and password = ?";
+ 
+    private static final String dbURL = "jdbc:mysql://localhost:3306/bioInspiredProject";
+    private static final String dbUsername = "root";
+    private static final String dbPassword = "";
+    private static final String query = "SELECT * FROM admins WHERE username = ? and password = ?";
 
     public boolean validate(String username, String password) throws SQLException {
 
-        // Step 1: Establishing a Connection and 
-        // try-with-resource statement will auto close the connection.
         try (Connection connection = DriverManager
-            .getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
+            .getConnection(dbURL, dbUsername, dbPassword);
 
-            // Step 2:Create a statement using connection object
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
 
@@ -36,7 +33,7 @@ public class JdbcDao {
 
 
         } catch (SQLException e) {
-            // print SQL exception information
+   
             printSQLException(e);
         }
         return false;
