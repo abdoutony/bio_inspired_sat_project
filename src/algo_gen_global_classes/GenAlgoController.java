@@ -52,8 +52,8 @@ public class GenAlgoController {
          
 	     /* crossing over 2 chromosoms*/
 	    public static  Solution solutionCrossing(Solution sol1, Solution sol2) { 
-	        int[] values = new int[Loading.VAR_NUM];
-	        for (int i = 0; i < Loading.VAR_NUM; i++) {
+	        int[] values = new int[Loading.numberOfVariables];
+	        for (int i = 0; i < Loading.numberOfVariables; i++) {
 	            if (Math.random() < 0.5) {
 	                values[i] = sol1.getarraySolution()[i];
 	            } else {
@@ -65,8 +65,8 @@ public class GenAlgoController {
 
 	    /* mutating 2 chromosoms */
 	    public static  Solution solutionMutating(Solution sol,double MUTATION_CHANCE) { 
-	        int[] values = new int[Loading.VAR_NUM];
-	        for (int i = 0; i < Loading.VAR_NUM; i++) {
+	        int[] values = new int[Loading.numberOfVariables];
+	        for (int i = 0; i < Loading.numberOfVariables; i++) {
 	            if (Math.random() < MUTATION_CHANCE) {
 	                if (sol.getarraySolution()[i] == 0) {
 	                    values[i] = 1;

@@ -27,7 +27,7 @@ public class Algo_Body_AStar {
    
     public void algoBody(int instence) {
         timeStart = System.currentTimeMillis();
-        int[] values = new int[Loading.VAR_NUM];
+        int[] values = new int[Loading.numberOfVariables];
         /* generate an initial solution a list of 0 values */
         Solution solution = new Solution(values, -1, Loading.sat); 
         /* create a stack */
@@ -47,8 +47,8 @@ public class Algo_Body_AStar {
                 }
                 solution = stack.pop();
             } else {
-                if (solution.getLevel() < Loading.VAR_NUM - 1) {
-                    solution.getKidsAStar(stack, Loading.VAR_NUM, Loading.sat);
+                if (solution.getLevel() < Loading.numberOfVariables - 1) {
+                    solution.getKidsAStar(stack, Loading.numberOfVariables, Loading.sat);
                 }
                 solutionsAlreadyPassed.add(solution);
                 solution = stack.pop();
@@ -60,7 +60,7 @@ public class Algo_Body_AStar {
         print_ASTAR_Best_Solution();
    
         int numberOfSatisfiedClauses = Loading.sat.satisfiedClauses(bestSolution); 
-        float valueOfAccuracy = (float) numberOfSatisfiedClauses / Loading.CLAUSE_NUMBER * 100;
+        float valueOfAccuracy = (float) numberOfSatisfiedClauses / Loading.numberOfClauses * 100;
         Long executionTime = timeStop - timeStart;
         System.out.println("satisfactions :"+numberOfSatisfiedClauses+"     ////////////    accuracy :"+ valueOfAccuracy+" instence : "+ instence);
         listAccuracyForEachInstanceASTAR.add(new XYChart.Data<Number, Number>(instence,valueOfAccuracy));

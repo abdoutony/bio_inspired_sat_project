@@ -11,7 +11,7 @@ public class Run {
 		
 		 for (int x = 1; x <= instancesToUse; x++) {
 	            System.out.println("Instance number: " + x);
-	            Loading.sat = Loading.LoadSat("/res/uf75-325/uf75-0" + x + ".cnf");
+	            Loading.sat = Loading.LoadFile("/res/uf75-325/uf75-0" + x + ".cnf");
 	            if(algorithm=="dfs") {
 	            	Algo_Body_Dfs algo = new Algo_Body_Dfs();
 	            	 algo.algoBody(x);	

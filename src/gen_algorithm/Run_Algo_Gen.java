@@ -23,7 +23,7 @@ public class Run_Algo_Gen {
 	  
 		 
 		  for (int x = 1; x <= Algo_Body_Gen.nbrInstancesGen; x++) { 
-	            sat = Loading.LoadSat("/res/uf75-325/uf75-0" + x + ".cnf");
+	            sat = Loading.LoadFile("/res/uf75-325/uf75-0" + x + ".cnf");
 	            Algo_Body_Gen.algoBody(x);
 	           
 	  }

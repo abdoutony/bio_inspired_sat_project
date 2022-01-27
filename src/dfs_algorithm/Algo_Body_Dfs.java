@@ -26,7 +26,7 @@ public class Algo_Body_Dfs {
     public void algoBody(int instance) {
 
     	/*instanciate variable with 0 value*/
-        int[] values = new int[Loading.VAR_NUM]; 
+        int[] values = new int[Loading.numberOfVariables]; 
         
         /* create the stack to stock the nodes */
         Stack<Solution> sols = new Stack<Solution>(); 
@@ -49,7 +49,7 @@ public class Algo_Body_Dfs {
         timeStart = System.currentTimeMillis(); 
 
         while (!Loading.sat.satisfied(solution) && (System.currentTimeMillis() - timeStart) < timeOutDefaultValue) {
-            if (solution.getLevel() < Loading.VAR_NUM - 1) {
+            if (solution.getLevel() < Loading.numberOfVariables - 1) {
             	/* generate the kids nodes */
                 solution.getDepthNodes(sols); 
             }
@@ -70,7 +70,7 @@ public class Algo_Body_Dfs {
        
         int satisfiedClauses = Loading.sat.satisfiedClauses(bestSolution); 
         Long execution_time = timeStop - timeStart;
-        float accuracyValue = (float) satisfiedClauses / Loading.CLAUSE_NUMBER * 100;
+        float accuracyValue = (float) satisfiedClauses / Loading.numberOfClauses * 100;
         System.out.println("The Number of the satisfied clauses :"+satisfiedClauses+"\nThe accuracy for the instance "+ instance +" is:"+ accuracyValue +"%");
         System.out.println("////////////////////////////////////////////");
 		listAccuracyForEachInstanceDFS.add(new XYChart.Data<Number, Number>(instance,accuracyValue));

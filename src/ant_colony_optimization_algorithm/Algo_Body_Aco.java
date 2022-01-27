@@ -24,8 +24,8 @@ public class Algo_Body_Aco {
 	public static List<Data<Number, Number>> listSatisfactionACOData =new ArrayList<Data<Number,Number>>();
 	
 	public static void algoBody(int x) {
-		 arrayPheromon = new double[Loading.VAR_NUM][2]; 
-	        for (int i = 0; i < Loading.VAR_NUM; i++) { 
+		 arrayPheromon = new double[Loading.numberOfVariables][2]; 
+	        for (int i = 0; i < Loading.numberOfVariables; i++) { 
 	            arrayPheromon[i][0] = arrayPheromon[i][1] = pheromonInitialValue;
 	        }
 	     
@@ -47,7 +47,7 @@ public class Algo_Body_Aco {
 	                    valueBest = agentAnt.getNbrSatisfiedClauses();
 	                }
 	            }
-	            for (int j = 0; j < Loading.VAR_NUM; j++) { 
+	            for (int j = 0; j < Loading.numberOfVariables; j++) { 
 	                if (antBestOne.getArraySolution()[j] == 0) {
 	                    arrayPheromon[j][0] = (1 - vrateValue) * arrayPheromon[j][0] + vrateValue * (double) (arrayFitness[j][0]);
 	                    arrayPheromon[j][1] = (1 - vrateValue) * arrayPheromon[j][1];
@@ -60,7 +60,7 @@ public class Algo_Body_Aco {
 			}
 		 System.out.print("Iteration " + iterationCounter + " : "+valueFitness);
          int numberOfSatisifiedClauses = valueFitness; 
-         float accuracy = (float)valueFitness/Loading.CLAUSE_NUMBER*100;
+         float accuracy = (float)valueFitness/Loading.numberOfClauses*100;
        
          listAccuracyForEachInstanceACO.add(new Data<Number, Number>(x,accuracy));
          listSatisfactionACOData.add(new Data<Number, Number>(x, iterationCounter));

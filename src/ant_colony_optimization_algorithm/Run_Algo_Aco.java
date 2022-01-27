@@ -20,7 +20,7 @@ public class Run_Algo_Aco {
 		
 	public static void acoAlgorithmRun() {
 		for (int x = 1; x <= Algo_Body_Aco.nbtInstancesACO; x++) {
-			sat = Loading.LoadSat("/res/uf75-325/uf75-0"+x+".cnf");
+			sat = Loading.LoadFile("/res/uf75-325/uf75-0"+x+".cnf");
 	       Algo_Body_Aco.algoBody(x);
     	}
 	}

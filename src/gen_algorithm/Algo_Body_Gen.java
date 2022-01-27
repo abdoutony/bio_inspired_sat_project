@@ -32,7 +32,7 @@ public class Algo_Body_Gen {
 	    	 Algo_Body_Gen g1 = new Algo_Body_Gen();
 	        	timeStart = System.currentTimeMillis();
 	            int iterationCounter = 0;
-	            while (g1.returnPopulation().getFitnessBestValue() < Loading.CLAUSE_NUMBER && System.currentTimeMillis() - timeStart < timeOutDefaultValue) { // si problem n'est pas satisfait et tmps < timeout
+	            while (g1.returnPopulation().getFitnessBestValue() < Loading.numberOfClauses && System.currentTimeMillis() - timeStart < timeOutDefaultValue) { // si problem n'est pas satisfait et tmps < timeout
 	            	GenAlgoController.runCrossOver(permanentSolutions,chanceOfCrossOver,population,sizeOfTheSelection);
 	            	GenAlgoController.runMutation(permanentSolutions,population,bestSolution,chanceOfMutation);
 	                iterationCounter++;
@@ -42,7 +42,7 @@ public class Algo_Body_Gen {
 	          
 	            /* save data for to be displayed on graphs */
 	            int numberOfSatisifiedClauses = g1.returnBestSolution().getValueFitness(); 
-	            float valueOfAccuracy = (float)numberOfSatisifiedClauses/Loading.CLAUSE_NUMBER*100;
+	            float valueOfAccuracy = (float)numberOfSatisifiedClauses/Loading.numberOfClauses*100;
 	            
 	            listAccuracyForEachInstanceGEN.add(new Data<Number, Number>(x,valueOfAccuracy));
 	            listSatisfactionGENData.add(new Data<Number, Number>(x, iterationCounter));

@@ -9,14 +9,14 @@ public class AgentAnt {
     private int nbrStatisfiedClauses; 
 
     public AgentAnt() { 
-        arraySolution = new int[Loading.VAR_NUM];
-        for (int i = 0; i < Loading.VAR_NUM; i++) {
+        arraySolution = new int[Loading.numberOfVariables];
+        for (int i = 0; i < Loading.numberOfVariables; i++) {
             arraySolution[i] = -1;
         }
     }
 
     public void start() {
-        for (int i = 0; i < Loading.VAR_NUM; i++) {
+        for (int i = 0; i < Loading.numberOfVariables; i++) {
             move(i); 
             onlineUpdate(i);
         }

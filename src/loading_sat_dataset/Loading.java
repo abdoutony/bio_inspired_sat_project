@@ -6,39 +6,24 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
 import ant_colony_optimization_algorithm.Algo_Body_Aco;
-import ant_colony_optimization_algorithm.Run_Algo_Aco;
 import sat_codification.Clause;
 import sat_codification.Litteral;
 import sat_codification.Sat;
 
 public class Loading {
 
-	    public static List<Clause> clauses;
-	    public static List<Litteral> litterals;
+	    public static List<Clause> listClauses;
+	    public static List<Litteral> listLitterals;
 	    public static Litteral litteral;
 	    public static Clause clause;
 	    public static Sat sat;
+	    public static int numberOfVariables; 
+	    public static int numberOfClauses; 
 	    
-	    
-	    // Parametres
-	    public static int VAR_NUM; // nombre des Varriables
-	    public static int CLAUSE_NUMBER; // nombre des Clauses
-	    
-
-	  
-		
-
-	    // Chargement d'un fichier
-	    public static Sat LoadSat(String fileName) {
-
-	        //Initilisation des Listes
-	        clauses = new ArrayList<>();
-
-	        //Juste une varriable tmp
-	        int tmpParseInt;
-
+	    public static Sat LoadFile(String fileName) {
+	        listClauses = new ArrayList<>();
+	        int temporaryParseInteger;
 	        try {
 	            InputStream is = new FileInputStream(System.getProperty("user.dir") + fileName);
 	            InputStreamReader isr = new InputStreamReader(is);
@@ -53,37 +38,37 @@ public class Loading {
 	                        line = line.replace("p cnf ", "");
 	                        line = line.replaceFirst(" ", "");
 	                        lit = line.split(" ");
-	                        VAR_NUM = Integer.parseInt(lit[0]);
-	                        CLAUSE_NUMBER = Integer.parseInt(lit[1]);
-	                        Algo_Body_Aco.arrayFitness = new int[VAR_NUM][2];
+	                        numberOfVariables = Integer.parseInt(lit[0]);
+	                        numberOfClauses = Integer.parseInt(lit[1]);
+	                        Algo_Body_Aco.arrayFitness = new int[numberOfVariables][2];
 	                        continue;
 	                    }
-	                    litterals = new ArrayList<Litteral>();
+	                    listLitterals = new ArrayList<Litteral>();
 	                    if (first) {
 	                        line = line.replaceFirst(" ", "");
 	                        first = false;
 	                    }
 	                    lit = line.split(" ");
 	                    for (int i = 0; i < 3; i++) {
-	                        tmpParseInt = Integer.parseInt(lit[i]);
-	                        if (tmpParseInt > 0) {
-	                            Algo_Body_Aco.arrayFitness[tmpParseInt - 1][1]++;
-	                            litteral = new Litteral(tmpParseInt, 1);
+	                        temporaryParseInteger = Integer.parseInt(lit[i]);
+	                        if (temporaryParseInteger > 0) {
+	                            Algo_Body_Aco.arrayFitness[temporaryParseInteger - 1][1]++;
+	                            litteral = new Litteral(temporaryParseInteger, 1);
 	                        } else {
-	                        	Algo_Body_Aco.arrayFitness[-(tmpParseInt) - 1][0]++;
-	                            litteral = new Litteral(-tmpParseInt, -1);
+	                        	Algo_Body_Aco.arrayFitness[-(temporaryParseInteger) - 1][0]++;
+	                            litteral = new Litteral(-temporaryParseInteger, -1);
 	                        }
-	                        litterals.add(litteral);
+	                        listLitterals.add(litteral);
 	                    }
-	                    clause = new Clause(litterals);
-	                    clauses.add(clause);
+	                    clause = new Clause(listLitterals);
+	                    listClauses.add(clause);
 	                }
 	            }
 	            br.close();
 	        } catch (Exception e) {
 	            System.out.println(e.toString());
 	        }
-	        return new Sat(clauses);
+	        return new Sat(listClauses);
 
 	    }
 	

@@ -13,8 +13,8 @@ public class Solution {
 
     public Solution() {
         Random random = new Random();
-        arraySolution = new int[Loading.VAR_NUM];
-        for (int i = 0; i < Loading.VAR_NUM; i++) {
+        arraySolution = new int[Loading.numberOfVariables];
+        for (int i = 0; i < Loading.numberOfVariables; i++) {
             arraySolution[i] = random.nextInt(2);
         }
         valueFitness = Run_Algo_Gen.sat.satisfiedClauses(arraySolution);
