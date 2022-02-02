@@ -42,7 +42,10 @@ public class LoginController {
     private void ok(ActionEvent event){
         String userName = userNameField.getText();
         String password = passwordField.getText();
-        if (authenticate(userName, password)) {
+        // if you want to use database just delete the comparison in the if statement and uncomment the authenticate function
+        // but first you have to configure a gdbc driver 
+        // then create a bdd called bioInspiredProject 
+        if (userName.equals("admin@admin.com") && password.equals("admin") /*authenticate(userName, password)*/) {
             setUser(new User(userName));
             errorLabel.setText("");
             main.loadScreen(loginBtn,"Main_scene.fxml");
@@ -64,7 +67,7 @@ public class LoginController {
     }
     
     private boolean authenticate(String userName, String password) {
-        // in real life, do real authentication...
+      
         if (userName.isEmpty() || password.isEmpty()) {
             return false ;
         }

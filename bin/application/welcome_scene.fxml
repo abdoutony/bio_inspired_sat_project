@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="448.0" prefWidth="757.0" styleClass="background-dark" stylesheets="@../../../../../../bio%20inspired%20project/applicationStyles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="authentication.LoginController">
    <children>
-      <Label layoutX="99.0" layoutY="48.0" prefHeight="118.0" prefWidth="608.0" text="Welcome To SAT problem Solvers Application" textAlignment="CENTER" textFill="#f70b37" wrapText="true">
+      <Label layoutX="75.0" layoutY="48.0" prefHeight="118.0" prefWidth="608.0" text="Welcome To SAT problem Solvers Application" textAlignment="CENTER" textFill="#f70b37" wrapText="true">
          <font>
             <Font size="26.0" />
          </font>
@@ -20,7 +20,7 @@
             <String fx:value="text-white" />
          </styleClass>
       </Label>
-      <Label layoutX="287.0" layoutY="141.0" prefHeight="25.0" prefWidth="185.0" styleClass="text-white" text="Login As an Administrator">
+      <Label layoutX="71.0" layoutY="141.0" prefHeight="25.0" prefWidth="615.0" styleClass="text-white" text="Login As an AdLogin As an Administrator (email: admin@admin.com, password: admin">
          <font>
             <Font size="16.0" />
          </font>
@@ -35,6 +35,6 @@
          <font>
             <Font size="14.0" />
          </font></Button>
-         <Label fx:id="errorLabel" id="error-label" layoutX="219.0" layoutY="369.0" prefHeight="17.0" prefWidth="322.0" textFill="WHITE" />
+         <Label id="error-label" fx:id="errorLabel" layoutX="219.0" layoutY="369.0" prefHeight="17.0" prefWidth="322.0" textFill="WHITE" />
    </children>
 </AnchorPane>
