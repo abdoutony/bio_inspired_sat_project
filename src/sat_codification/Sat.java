@@ -39,7 +39,7 @@ public class Sat {
 	        return true;
 	    }
 	    
-	    //////////////////////////////////////////  ANT COLONY OPTIMISATION 
+	    /* return satisfied clauses for ant colony optimization algo */
 	    public boolean satisfied(AgentAnt solution) {
 	        int[] values = solution.getArraySolution();
 	        boolean sat = false;
@@ -56,6 +56,7 @@ public class Sat {
 	        return true;
 	    }
 	    
+		/* return satisfied clauses for dfs and Astar algorithms */
 	    public int satisfiedClauses(Solution solution) {
 	        int satisfactions = 0;
 	        int[] values = solution.getArraySolution();
@@ -70,8 +71,7 @@ public class Sat {
 	        return satisfactions;
 	    }
 	    
-	    
-	    ////////////////////////////////////////////////// BFS AND Astar
+
 	    
 	    public int satisfiedClauses(int values[]) {
 	        int satisfactions = 0;
