@@ -1,7 +1,6 @@
 package dfs_algorithm;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -64,29 +63,16 @@ public class Algo_Body_Dfs {
         }
 
         timeStop = System.currentTimeMillis();
-
-        print_DFS_Best_Solution();
-        
-       
         int satisfiedClauses = Loading.sat.satisfiedClauses(bestSolution); 
         Long execution_time = timeStop - timeStart;
         float accuracyValue = (float) satisfiedClauses / Loading.numberOfClauses * 100;
-        System.out.println("The Number of the satisfied clauses :"+satisfiedClauses+"\nThe accuracy for the instance "+ instance +" is:"+ accuracyValue +"%");
-        System.out.println("////////////////////////////////////////////");
 		listAccuracyForEachInstanceDFS.add(new XYChart.Data<Number, Number>(instance,accuracyValue));
         listSatisfactionDFSData.add(new Data<Number, Number>(instance,execution_time));
-        
         /*set the total execution time*/
 		Run_Algo_Dfs.totalTimeDFS += timeStop - timeStart; 
 
     }
 
-    private void print_DFS_Best_Solution() {
-        System.out.println(" Solution:\n " + Arrays.toString(bestSolution.getArraySolution()));
-        //System.out.println("Satisfactions : " + Load.sat.satisfiedClauses(best) + " - " + (float) Load.sat.satisfiedClauses(best) / Load.CLAUSE_NUMBER * 100 + "%");
-        System.out.println("Execution Time : " + (timeStop - timeStart) + "ms");
-        
-    }
 
 
 }

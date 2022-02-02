@@ -8,19 +8,19 @@ import loading_sat_dataset.Loading;
 
 public class GenAlgoController {
 	 
-	    /* Cross Over function  */
-	    public static void runCrossOver(int PERMANENT_SOLS, double CROSSOVER_CHANCE,Population population,int SELECTION_SIZE) {
+	    /* run Cross Over function  */
+	    public static void runCrossOver(int permanentSolutions, double chanceOfCrossOver,Population population,int sizeOfTheSelection) {
 	        List<Solution> newPopulation = new ArrayList<>();
 	        Solution parent1, parent2;
-	        for (int i = 0; i < PERMANENT_SOLS; i++) {
+	        for (int i = 0; i < permanentSolutions; i++) {
 	        	/* save parent solutions */
 	            newPopulation.add(population.getListSolutions().get(i));
 	        }
-	        for (int i = PERMANENT_SOLS; i < Population.sizeOfThePopulation; i++) { 
-	            if (Math.random() < CROSSOVER_CHANCE) {
+	        for (int i = permanentSolutions; i < Population.sizeOfThePopulation; i++) { 
+	            if (Math.random() < chanceOfCrossOver) {
 	            	
-	                parent1 = solutionsSelection(SELECTION_SIZE,population).get(0); 
-	                parent2 = solutionsSelection(SELECTION_SIZE,population).get(0); 
+	                parent1 = solutionsSelection(sizeOfTheSelection,population).get(0); 
+	                parent2 = solutionsSelection(sizeOfTheSelection,population).get(0); 
 	                /* cross over between the best solutions of parent1 and parent2 */
 	                newPopulation.add(solutionCrossing(parent1, parent2));
 	            } else {
@@ -32,15 +32,15 @@ public class GenAlgoController {
 	        population.setListSolutions(newPopulation);
 	    }
 
-	    public static  void runMutation(int PERMANENT_SOLS,Population population,Solution best,double MUTATION_CHANCE) {
+	    public static  void runMutation(int permanentSolutions,Population population,Solution best,double chanceOfMutation) {
 	        List<Solution> newPopulation = new ArrayList<>();
-	        for (int i = 0; i < PERMANENT_SOLS; i++) { 
+	        for (int i = 0; i < permanentSolutions; i++) { 
 	        	/* save the parent solutions */
 	            newPopulation.add(population.getListSolutions().get(i));
 	        }
 	        /* mutate all the population */
-	        for (int i = PERMANENT_SOLS; i < Population.sizeOfThePopulation; i++) { 
-	            newPopulation.add(solutionMutating(population.getListSolutions().get(i),MUTATION_CHANCE));
+	        for (int i = permanentSolutions; i < Population.sizeOfThePopulation; i++) { 
+	            newPopulation.add(solutionMutating(population.getListSolutions().get(i),chanceOfMutation));
 	        }
 	        /* overwrite the old population*/
 	        population.setListSolutions(newPopulation); 
@@ -64,10 +64,10 @@ public class GenAlgoController {
 	    }
 
 	    /* mutating 2 chromosoms */
-	    public static  Solution solutionMutating(Solution sol,double MUTATION_CHANCE) { 
+	    public static  Solution solutionMutating(Solution sol,double chanceOfMutation) { 
 	        int[] values = new int[Loading.numberOfVariables];
 	        for (int i = 0; i < Loading.numberOfVariables; i++) {
-	            if (Math.random() < MUTATION_CHANCE) {
+	            if (Math.random() < chanceOfMutation) {
 	                if (sol.getarraySolution()[i] == 0) {
 	                    values[i] = 1;
 	                } else {
@@ -80,10 +80,10 @@ public class GenAlgoController {
 	        return new Solution(values);
 	    }
 
-	    public static List<Solution> solutionsSelection(int SELECTION_SIZE,Population population) { // fonction de selection aleatoire
+	    public static List<Solution> solutionsSelection(int sizeOfTheSelection,Population population) { 
 	        List<Solution> sols = new ArrayList<>();
 	        Random random = new Random();
-	        for (int i = 0; i < SELECTION_SIZE; i++) {
+	        for (int i = 0; i < sizeOfTheSelection; i++) {
 	            Solution s = population.getListSolutions().get(random.nextInt(Population.sizeOfThePopulation));
 	            if (!sols.contains(s)) {
 	                sols.add(s);

@@ -47,7 +47,7 @@ public class Algo_Body_Gen {
 	            listAccuracyForEachInstanceGEN.add(new Data<Number, Number>(x,valueOfAccuracy));
 	            listSatisfactionGENData.add(new Data<Number, Number>(x, iterationCounter));
 	           
-	            printSolution(x,g1);
+	         
 	    }
 	
 	    
@@ -66,11 +66,6 @@ public class Algo_Body_Gen {
 	        return bestSolution;
 	    }
 	    
-      public static void printSolution(int iteration,Algo_Body_Gen g1) {
-	        
-	        System.out.println(iteration + " : " + g1.returnBestSolution().toString() + "\n" + g1.returnBestSolution().getValueFitness());
-	        
-	        System.out.println("--------------------------------------------");
-	    }
+  
 
 }

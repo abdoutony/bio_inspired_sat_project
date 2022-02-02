@@ -59,15 +59,10 @@ public class Algo_Body_Aco {
 	            }
 	            valueFitness=antBestOne.getNbrSatisfiedClauses();	
 			}
-		 System.out.print("Iteration " + iterationCounter + " : "+valueFitness);
-         int numberOfSatisifiedClauses = valueFitness; 
+     
          float accuracy = (float)valueFitness/Loading.numberOfClauses*100;
-       
          listAccuracyForEachInstanceACO.add(new Data<Number, Number>(x,accuracy));
          listSatisfactionACOData.add(new Data<Number, Number>(x, iterationCounter));
-         System.out.println("accuracy:"+accuracy+"    satisfactions:"+numberOfSatisifiedClauses);
-         System.out.println("instence:"+x+"    iterarion:"+iterationCounter);
          Run_Algo_Aco.totalTimeAco += (long) (System.currentTimeMillis()-timeStart);
-	     System.out.println(" --time = "+Run_Algo_Aco.totalTimeAco+" ms");
 	}
 }

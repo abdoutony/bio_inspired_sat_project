@@ -17,13 +17,6 @@ public class Algo_Body_AStar {
     public static List<XYChart.Data<Number, Number>> listSatisfactionASTARData = new ArrayList<XYChart.Data<Number,Number>>();
     private long timeStart, timeStop;
     private Solution bestSolution;
-    
-    private void print_ASTAR_Best_Solution() {
-        System.out.println(" Solution:\n " + Arrays.toString(bestSolution.getArraySolution()));
-        //System.out.println("Satisfactions : " + Load.sat.satisfiedClauses(best) + " - " + (float) Load.sat.satisfiedClauses(best) / Load.CLAUSE_NUMBER * 100 + "%");
-        System.out.println("Execution Time : " + (timeStop - timeStart) + "ms");
-    }
-    
    
     public void algoBody(int instence) {
         timeStart = System.currentTimeMillis();
@@ -56,13 +49,10 @@ public class Algo_Body_AStar {
         }
 
         timeStop = System.currentTimeMillis();
-        bestSolution = solution;
-        print_ASTAR_Best_Solution();
-   
+        bestSolution = solution;   
         int numberOfSatisfiedClauses = Loading.sat.satisfiedClauses(bestSolution); 
         float valueOfAccuracy = (float) numberOfSatisfiedClauses / Loading.numberOfClauses * 100;
         Long executionTime = timeStop - timeStart;
-        System.out.println("satisfactions :"+numberOfSatisfiedClauses+"     ////////////    accuracy :"+ valueOfAccuracy+" instence : "+ instence);
         listAccuracyForEachInstanceASTAR.add(new XYChart.Data<Number, Number>(instence,valueOfAccuracy));
         listSatisfactionASTARData.add(new Data<Number, Number>(instence,executionTime));
         Run_Algo_AStar.totalTimeASTAR += timeStop - timeStart;

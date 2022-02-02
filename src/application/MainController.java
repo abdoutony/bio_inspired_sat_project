@@ -1,10 +1,8 @@
 package application;
 
-import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
-
 import a_star_algorithm.Algo_Body_AStar;
 import a_star_algorithm.Run_Algo_AStar;
 import ant_colony_optimization_algorithm.Algo_Body_Aco;
@@ -22,13 +20,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.ScatterChart;
-import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -45,7 +39,7 @@ public class MainController implements Initializable {
     private ObservableList<Series<Number,Number>> seriesList = FXCollections.observableArrayList();
     
 	/*The variable used to deal with Depth first search algorithm*/
-    int initialValue = 10;
+    int initialValue = 15;
 	@FXML 
 	private Spinner<Integer> nbrInstancesDFS ;
 	@FXML 

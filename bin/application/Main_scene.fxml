@@ -317,7 +317,10 @@
                                            
                                           <Label text="Timeout " />
                                           <Slider fx:id="timeOutACO" blockIncrement="1000.0" max="10000.0" min="2000.0" showTickLabels="true" />
-                                          <Button mnemonicParsing="false" onAction="#executeAco" text="Run Algorithm" />
+                                          <Button mnemonicParsing="false" onAction="#executeAco" text="Run Algorithm">
+                                             <VBox.margin>
+                                                <Insets bottom="50.0" />
+                                             </VBox.margin></Button>
                                        </children>
                                     </VBox>
                                  </content>
@@ -390,7 +393,7 @@
                      <children>
                          <AnchorPane prefHeight="321.0" prefWidth="177.0" styleClass="background-gray">
                            <children>
-                              <Button layoutX="27.0" layoutY="62.0" onAction="#executeComparaison"  mnemonicParsing="false" prefHeight="43.0" prefWidth="116.0" text="Run" />
+                              <Button layoutX="27.0" layoutY="62.0" mnemonicParsing="false" onAction="#executeComparaison" prefHeight="43.0" prefWidth="116.0" text="Run" />
                               <Label layoutX="13.0" layoutY="20.0" text="Run comparaison">
                                  <font>
                                     <Font name="System Bold" size="19.0" />
@@ -411,7 +414,7 @@
                                     </Label>
                                     <VBox layoutX="25.0" layoutY="146.0">
                                        <children>
-                                          <LineChart fx:id="lineChartComparaison" styleClass="background-gray" >
+                                          <LineChart fx:id="lineChartComparaison" styleClass="background-gray">
                                             <xAxis>
                                               <NumberAxis label="Instance" side="BOTTOM" />
                                             </xAxis>
